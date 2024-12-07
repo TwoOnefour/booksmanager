@@ -83,13 +83,13 @@ export default {
         "insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
       )
         .bind(
-		searchParams.get("name"),
-        searchParams.get("author"),
-        searchParams.get("publisher"),
-        searchParams.get("keyword"),
-        searchParams.get("excerpt"),
-        searchParams.get("category_num"),
-        searchParams.get("publish_date")
+			searchParams.get("name"),
+			searchParams.get("author"),
+			searchParams.get("publisher"),
+			searchParams.get("keyword"),
+			searchParams.get("excerpt"),
+			searchParams.get("category_num"),
+			searchParams.get("publish_date")
         )
         .all();
       dbresults = results;
