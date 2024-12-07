@@ -18,7 +18,7 @@ export default {
       )
         .bind(searchParams.get("index"))
         .all();
-      return Response.json(results);
+      dbresults = results;
     }
 
     if (pathname === "/api/select_book"
@@ -29,7 +29,7 @@ export default {
       )
         .bind(`%${searchParams.get("book_name")}%`)
         .all();
-      return Response.json(results);
+      dbresults = results;
     }
 
     if (pathname === "/api/precise_select_book"
@@ -40,7 +40,7 @@ export default {
       )
         .bind(`${searchParams.get("book_name")}`)
         .all();
-      return Response.json(results);
+      dbresults = results;
     }
 
     if (pathname === "/api/precise_delete_book"
@@ -51,23 +51,24 @@ export default {
       )
         .bind(`${searchParams.get("book_name")}`)
         .all();
-      return Response.json(results);
+      dbresults = results;
     }
     if (dbresults !== null){
-    const responseObject = {
-        code: 200,
-        data: dbresults
-    };
-    let resp = Response.json(responseObject, {
-    headers: {
-      'Access-Control-Allow-Origin': '*', // Or your specific origin
-      'content-type': 'application/json;charset=UTF-8',
+		const responseObject = {
+			code: 200,
+			data: dbresults
+		};
+		let resp = Response.json(responseObject, {
+			headers: {
+			  'Access-Control-Allow-Origin': '*', // Or your specific origin
+			  'content-type': 'application/json;charset=UTF-8',
+			}
+		});
+    	return resp;
     }
-  });
-    return resp;
-    }
-    return new Response(
-      "404 not found.",
-    );
+	else
+		return new Response(
+		  "404 not found.",
+		);
   },
 }
