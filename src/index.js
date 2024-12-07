@@ -53,25 +53,24 @@ export default {
         .all();
       dbresults = results;
     }
+	let headers = {
+				  'Access-Control-Allow-Origin': '*', // Or your specific origin
+				  'content-type': 'application/json;charset=UTF-8',
+	}
+
     if (dbresults !== []){
 		const responseObject = {
 			code: 200,
 			data: dbresults
 		};
 		let resp = Response.json(responseObject, {
-			headers: {
-			  'Access-Control-Allow-Origin': '*', // Or your specific origin
-			  'content-type': 'application/json;charset=UTF-8',
-			}
+			headers: headers
 		});
     	return resp;
     }
 	else
 		return Response.json({code: 404, data: null}, {
-				headers: {
-				  'Access-Control-Allow-Origin': '*', // Or your specific origin
-				  'content-type': 'application/json;charset=UTF-8',
-				}
+				headers: headers
 		});
   },
 }
