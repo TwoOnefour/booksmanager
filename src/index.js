@@ -25,7 +25,7 @@ export default {
        && searchParams.has("book_name")
       ){
       const { results } = await env.DB.prepare(
-        'select name,author,publisher,publish_date from books where name like "%?%";',
+        "select name,author,publisher,publish_date from books where name like \"%?%\";",
       )
         .bind(searchParams.get("book_name"))
         .all();
