@@ -79,20 +79,33 @@ export default {
        && searchParams.has("name")
 		&& searchParams.has("author")
       ){
-      const { results } = await env.DB.prepare(
-        "insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
-      )
-        .bind(
-			searchParams.get("name"),
-			searchParams.get("author"),
-			searchParams.get("publisher"),
-			searchParams.get("keyword"),
-			searchParams.get("excerpt"),
-			searchParams.get("category_num"),
-			searchParams.get("publish_date")
-        )
-        .all();
-      dbresults = results;
+		try {
+			const {results} = await env.DB.prepare(
+				"insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
+			)
+				.bind(
+					searchParams.get("name"),
+					searchParams.get("author"),
+					searchParams.get("publisher"),
+					searchParams.get("keyword"),
+					searchParams.get("excerpt"),
+					searchParams.get("category_num"),
+					searchParams.get("publish_date")
+				)
+				.all();
+			return {
+				code: 200,
+				data: null,
+				msg: "插入成功"
+			};
+		}
+		catch (error){
+			return {
+				code: 500,
+				data: null,
+				msg: "插入失败，请检查参数"
+			};
+		}
     }
     if (dbresults.length !== 0){
 		const responseObject = {
