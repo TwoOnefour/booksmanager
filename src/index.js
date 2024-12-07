@@ -79,7 +79,7 @@ export default {
        && searchParams.has("name")
 		&& searchParams.has("author")
       ){
-		try {
+
 			const {results} = await env.DB.prepare(
 				"insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
 			)
@@ -98,14 +98,6 @@ export default {
 				data: null,
 				msg: "插入成功"
 			};
-		}
-		catch (error){
-			return {
-				code: 500,
-				data: null,
-				msg: "插入失败，请检查参数"
-			};
-		}
     }
     if (dbresults.length !== 0){
 		const responseObject = {
