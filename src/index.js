@@ -1,6 +1,12 @@
 export default {
   async fetch(request, env) {
     const { pathname, searchParams } = new URL(request.url);
+
+	let headers = {
+				  'Access-Control-Allow-Origin': '*', // Or your specific origin
+				  'content-type': 'application/json;charset=UTF-8',
+	}
+
     let dbresults = [];
     if (pathname === "/api/select_all") {
       const { results } = await env.DB.prepare(
@@ -68,11 +74,6 @@ export default {
 			});
 		}
     }
-
-	let headers = {
-				  'Access-Control-Allow-Origin': '*', // Or your specific origin
-				  'content-type': 'application/json;charset=UTF-8',
-	}
 
     if (dbresults.length !== 0){
 		const responseObject = {
