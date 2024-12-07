@@ -53,7 +53,7 @@ export default {
         .all();
       dbresults = results;
     }
-    if (dbresults !== null){
+    if (dbresults !== []){
 		const responseObject = {
 			code: 200,
 			data: dbresults
