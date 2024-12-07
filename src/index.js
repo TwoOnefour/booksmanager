@@ -67,8 +67,11 @@ export default {
     	return resp;
     }
 	else
-		return new Response(
-		  "404 not found.",
-		);
+		return Response.json({code: 404, data: null}, {
+				headers: {
+				  'Access-Control-Allow-Origin': '*', // Or your specific origin
+				  'content-type': 'application/json;charset=UTF-8',
+				}
+		});
   },
 }
