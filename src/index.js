@@ -1,20 +1,13 @@
 export default {
   async fetch(request, env) {
     const { pathname, searchParams } = new URL(request.url);
-    
+    let dbresults = [];
     if (pathname === "/api/select_all") {
       const { results } = await env.DB.prepare(
         "SELECT name,author,publisher,publish_date FROM books",
       )
         .all();
-      const jsonResponse = JSON.stringify(results);
-      return new Response(jsonResponse, {
-    headers: {
-      'content-type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',  // Or your specific origin
-      // ... other headers as needed
-    },
-  })
+      dbresults = results
     }
 
     if (pathname === "/api/select_book_by_index"
@@ -60,7 +53,19 @@ export default {
         .all();
       return Response.json(results);
     }
-
+    if (dbresults !== null){
+    const responseObject = {
+        code: 200,
+        data: dbresults
+    };
+    let resp = Response.json(responseObject, {
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Or your specific origin
+      'content-type': 'application/json;charset=UTF-8',
+    }
+  });
+    return resp;
+    }
     return new Response(
       "404 not found.",
     );
