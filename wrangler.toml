@@ -48,8 +48,8 @@ enabled = true
 # database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
 [[d1_databases]]
-binding = "booksmanager"
-database_name = "books"
+binding = "DB"
+database_name = "booksmanager"
 database_id = "fdc0eef1-4139-411a-a4da-44650d1e69cc"
 
 # Bind a dispatch namespace. Use Workers for Platforms to deploy serverless functions programmatically on behalf of your customers.
