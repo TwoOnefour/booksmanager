@@ -48,11 +48,11 @@ export default {
        && searchParams.has("book_name")
       ){
 		const { results1 } = await env.DB.prepare(
-        "select * from books where name = ?;",
-      )
+        	"select * from books where name = ?;",
+      	)
         .bind(`${searchParams.get("book_name")}`)
         .all();
-		if (results1.length !== 0) {
+		if (results1 !== undefined) {
 			const {results} = await env.DB.prepare(
 				"delete from books where name = ?;",
 			)
