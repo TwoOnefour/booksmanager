@@ -82,13 +82,15 @@ export default {
       const { results } = await env.DB.prepare(
         "insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
       )
-        .bind(`${searchParams.get("name")}`)
-        .bind(`${searchParams.get("author")}`)
-        .bind(`${searchParams.get("publisher")}`)
-        .bind(`${searchParams.get("keyword")}`)
-        .bind(`${searchParams.get("excerpt")}`)
-        .bind(`${searchParams.get("category_num")}`)
-        .bind(`${searchParams.get("publish_date")}`)
+        .bind(
+		searchParams.get("name"),
+        searchParams.get("author"),
+        searchParams.get("publisher"),
+        searchParams.get("keyword"),
+        searchParams.get("excerpt"),
+        searchParams.get("category_num"),
+        searchParams.get("publish_date")
+        )
         .all();
       dbresults = results;
     }
