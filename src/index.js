@@ -75,6 +75,23 @@ export default {
 		}
     }
 
+    if (pathname === "/api/insert_book"
+       && searchParams.has("name")
+		&& searchParams.has("author")
+      ){
+      const { results } = await env.DB.prepare(
+        "insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
+      )
+        .bind(`${searchParams.get("name")}`)
+        .bind(`${searchParams.get("author")}`)
+        .bind(`${searchParams.get("publisher")}`)
+        .bind(`${searchParams.get("keyword")}`)
+        .bind(`${searchParams.get("excerpt")}`)
+        .bind(`${searchParams.get("category_num")}`)
+        .bind(`${searchParams.get("publish_date")}`)
+        .all();
+      dbresults = results;
+    }
     if (dbresults.length !== 0){
 		const responseObject = {
 			code: 200,
