@@ -58,7 +58,7 @@ export default {
 				  'content-type': 'application/json;charset=UTF-8',
 	}
 
-    if (dbresults !== []){
+    if (dbresults.length !== 0){
 		const responseObject = {
 			code: 200,
 			data: dbresults
