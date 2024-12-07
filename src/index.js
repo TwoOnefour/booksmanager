@@ -25,13 +25,23 @@ export default {
        && searchParams.has("book_name")
       ){
       const { results } = await env.DB.prepare(
-        "select name,author,publisher,publish_date from books where name like \"%?%\";",
+        "select name,author,publisher,publish_date from books where name like ?;",
       )
-        .bind(searchParams.get("book_name"))
+        .bind(`%${searchParams.get("book_name")}%`)
         .all();
       return Response.json(results);
     }
 
+    if (pathname === "/api/precise_select_book"
+       && searchParams.has("book_name")
+      ){
+      const { results } = await env.DB.prepare(
+        "select * from books where name = ?;",
+      )
+        .bind(`${searchParams.get("book_name")}`)
+        .all();
+      return Response.json(results);
+    }
 
     return new Response(
       "404 not found.",
