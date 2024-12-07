@@ -79,7 +79,7 @@ export default {
        && searchParams.has("name")
 		&& searchParams.has("author")
       ){
-
+		try {
 			const {results} = await env.DB.prepare(
 				"insert into books (name, author, publisher, keyword, excerpt, category_num, publish_date) values (?, ?, ?, ?, ?, ?, ?)",
 			)
@@ -93,11 +93,22 @@ export default {
 					searchParams.get("publish_date")
 				)
 				.all();
-			return {
+			return Response.json({
 				code: 200,
 				data: null,
 				msg: "插入成功"
-			};
+			}, {
+				headers: headers
+			});
+		} catch (e){
+			return Response.json({
+				code: 500,
+				data: null,
+				msg: "插入失败"
+			}, {
+				headers: headers
+			});
+		}
     }
     if (dbresults.length !== 0){
 		const responseObject = {
