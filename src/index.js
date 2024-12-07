@@ -4,8 +4,9 @@ export default {
     let dbresults = [];
     if (pathname === "/api/select_all") {
       const { results } = await env.DB.prepare(
-        "SELECT name,author,publisher,publish_date FROM books",
+        "SELECT * FROM books LIMIT ?, 10",
       )
+		.bind(searchParams.get("index"))
         .all();
       dbresults = results
     }
@@ -25,7 +26,7 @@ export default {
        && searchParams.has("book_name")
       ){
       const { results } = await env.DB.prepare(
-        "select name,author,publisher,publish_date from books where name like ?;",
+        "select * from books where name like ?;",
       )
         .bind(`%${searchParams.get("book_name")}%`)
         .all();
@@ -47,12 +48,13 @@ export default {
        && searchParams.has("book_name")
       ){
       const { results } = await env.DB.prepare(
-        "select * from books where name = ?;",
+        "delete from books where name = ?;",
       )
         .bind(`${searchParams.get("book_name")}`)
         .all();
       dbresults = results;
     }
+
 	let headers = {
 				  'Access-Control-Allow-Origin': '*', // Or your specific origin
 				  'content-type': 'application/json;charset=UTF-8',
