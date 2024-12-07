@@ -1,13 +1,20 @@
 export default {
   async fetch(request, env) {
     const { pathname, searchParams } = new URL(request.url);
-
+    
     if (pathname === "/api/select_all") {
       const { results } = await env.DB.prepare(
         "SELECT name,author,publisher,publish_date FROM books",
       )
         .all();
-      return Response.json(results);
+      const jsonResponse = JSON.stringify(results);
+      return new Response(jsonResponse, {
+    headers: {
+      'content-type': 'application/json;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',  // Or your specific origin
+      // ... other headers as needed
+    },
+  })
     }
 
     if (pathname === "/api/select_book_by_index"
@@ -33,6 +40,17 @@ export default {
     }
 
     if (pathname === "/api/precise_select_book"
+       && searchParams.has("book_name")
+      ){
+      const { results } = await env.DB.prepare(
+        "select * from books where name = ?;",
+      )
+        .bind(`${searchParams.get("book_name")}`)
+        .all();
+      return Response.json(results);
+    }
+
+    if (pathname === "/api/precise_delete_book"
        && searchParams.has("book_name")
       ){
       const { results } = await env.DB.prepare(
