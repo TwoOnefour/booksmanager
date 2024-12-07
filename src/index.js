@@ -64,12 +64,12 @@ export default {
 			)
 				.bind(`${searchParams.get("book_name")}`)
 				.all();
-			return Response.json({code: 200, data: null, meg: "删除成功"}, {
+			return Response.json({code: 200, data: null, msg: "删除成功"}, {
 				headers: headers
 			});
 		}
 		else{
-			return Response.json({code: 500, data: null, meg: "未找到书籍"}, {
+			return Response.json({code: 500, data: null, msg: "未找到书籍"}, {
 				headers: headers
 			});
 		}
