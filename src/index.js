@@ -53,6 +53,7 @@ export default {
         .bind(`${searchParams.get("book_name")}`)
         .all();
       dbresults = results;
+	  console.log(results);
     }
 
 	let headers = {
